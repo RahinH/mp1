@@ -4,10 +4,205 @@
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MP1</title>
+        <title>The Kop Corner | A Liverpool FC Fan Site</title>
+        <!-- Task 15/16: Font Awesome scalable vector icons (loaded as CSS) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
     <body>
-        <h1>Hello World! Welcome to MP1!</h1>
-        <img src="assets/image.jpg">
+        <!-- Header: holds the site navigation -->
+        <header class="site-header">
+            <nav class="navbar">
+                <a class="navbar__brand" href="#home">The Kop Corner</a>
+                <ul class="navbar__menu">
+                    <li><a class="navbar__link" href="#home">Home</a></li>
+                    <li><a class="navbar__link" href="#about">About</a></li>
+                    <li><a class="navbar__link" href="#gallery">Gallery</a></li>
+                    <li><a class="navbar__link" href="#anfield">Anfield</a></li>
+                    <li><a class="navbar__link" href="#legends">Legends</a></li>
+                    <li><a class="navbar__link" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Task 8: the hero content is vertically centred in this section -->
+            <section id="home" class="section section--hero">
+                <div class="container hero">
+                    <p class="hero__eyebrow"><i class="fa-solid fa-futbol"></i> Est. 1892 &middot; Anfield, Liverpool</p>
+                    <h1 class="hero__title">Welcome to The Kop Corner</h1>
+                    <p class="hero__tagline">A fan's tribute to Liverpool Football Club, the Reds of Merseyside.</p>
+                    <a class="button" href="#gallery">Explore the Gallery <i class="fa-solid fa-arrow-down"></i></a>
+                </div>
+            </section>
+
+            <!-- Task 7: Multi-column layout -->
+            <section id="about" class="section">
+                <div class="container">
+                    <h2 class="section__title">About the Club</h2>
+                    <div class="columns">
+                        <article class="columns__item">
+                            <i class="columns__icon fa-solid fa-landmark"></i>
+                            <h3>History</h3>
+                            <p>Founded in 1892, Liverpool grew from a Second Division side under Bill Shankly into one of the most decorated clubs in the world.</p>
+                        </article>
+                        <article class="columns__item">
+                            <i class="columns__icon fa-solid fa-trophy"></i>
+                            <h3>Honours</h3>
+                            <p>Twenty English league titles and six European Cups, the most of any English club in Europe's premier competition.</p>
+                        </article>
+                        <article class="columns__item">
+                            <i class="columns__icon fa-solid fa-people-group"></i>
+                            <h3>The Kop</h3>
+                            <p>The famous Spion Kop stand is the heart of Anfield, where "You'll Never Walk Alone" rings out before every home game.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task 6: Carousel -->
+            <section id="gallery" class="section">
+                <div class="container">
+                    <h2 class="section__title">Match Day Gallery</h2>
+                    <p class="section__intro">Five iconic Liverpool moments through the years.</p>
+
+                    <div class="carousel">
+                        <div class="carousel__viewport">
+                            <div class="carousel__track">
+                                <figure class="carousel__slide">
+                                    <img class="carousel__image" src="assets/lfc-2005-istanbul-trophy.jpg"
+                                         alt="The 2005 Champions League trophy on display in the Anfield museum">
+                                    <figcaption class="carousel__caption">
+                                        <h3>2005 &middot; The Miracle of Istanbul</h3>
+                                        <p>3&ndash;0 down at half-time to AC Milan, level at 3&ndash;3, European champions on penalties.</p>
+                                    </figcaption>
+                                </figure>
+                                <figure class="carousel__slide">
+                                    <img class="carousel__image" src="assets/lfc-2019-van-dijk.jpg"
+                                         alt="Virgil van Dijk at Liverpool's 2019 Champions League victory parade">
+                                    <figcaption class="carousel__caption">
+                                        <h3>2019 &middot; Kings of Europe in Madrid</h3>
+                                        <p>A 2&ndash;0 win over Tottenham, with Virgil van Dijk named man of the match.</p>
+                                    </figcaption>
+                                </figure>
+                                <figure class="carousel__slide">
+                                    <img class="carousel__image" src="assets/lfc-2019-klopp-parade.jpg"
+                                         alt="J&uuml;rgen Klopp on the open-top bus at the 2019 victory parade">
+                                    <figcaption class="carousel__caption">
+                                        <h3>2019 &middot; Bringing It Home</h3>
+                                        <p>J&uuml;rgen Klopp and the squad parade the trophy through the streets of Liverpool.</p>
+                                    </figcaption>
+                                </figure>
+                                <figure class="carousel__slide">
+                                    <img class="carousel__image" src="assets/lfc-2025-parade.jpg"
+                                         alt="Crowds at Liverpool's 2025 Premier League trophy parade">
+                                    <figcaption class="carousel__caption">
+                                        <h3>2025 &middot; Title Number Twenty</h3>
+                                        <p>The 2024&ndash;25 Premier League title is celebrated with a city-wide trophy parade.</p>
+                                    </figcaption>
+                                </figure>
+                                <figure class="carousel__slide">
+                                    <img class="carousel__image" src="assets/lfc-six-european-cups.jpg"
+                                         alt="Liverpool's six European Cup and Champions League trophies">
+                                    <figcaption class="carousel__caption">
+                                        <h3>1977&ndash;2019 &middot; Six European Cups</h3>
+                                        <p>Rome, London, Paris, Rome again, Istanbul and Madrid: six times champions of Europe.</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <button class="carousel__arrow carousel__arrow--prev" type="button" aria-label="Previous slide">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <button class="carousel__arrow carousel__arrow--next" type="button" aria-label="Next slide">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- One dot per slide is created by main.js -->
+                        <div class="carousel__dots"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task 10: Fixed-position background image -->
+            <section id="anfield" class="section section--parallax">
+                <div class="container">
+                    <h2 class="section__title">Anfield</h2>
+                    <p class="section__intro">Home of Liverpool FC since 1892. More than 61,000 voices, one song.</p>
+                    <p class="quote">&ldquo;This is Anfield.&rdquo;</p>
+                </div>
+            </section>
+
+            <!-- Task 11: Cards that open modal windows -->
+            <section id="legends" class="section">
+                <div class="container">
+                    <h2 class="section__title">Club Legends</h2>
+                    <p class="section__intro">Click a legend to read more.</p>
+                    <div class="legends">
+                        <button class="legend-card" type="button" data-modal="modal-shankly">
+                            <i class="legend-card__icon fa-solid fa-user-tie"></i>
+                            <span class="legend-card__name">Bill Shankly</span>
+                            <span class="legend-card__role">Manager &middot; 1959&ndash;1974</span>
+                        </button>
+                        <button class="legend-card" type="button" data-modal="modal-dalglish">
+                            <i class="legend-card__icon fa-solid fa-crown"></i>
+                            <span class="legend-card__name">Kenny Dalglish</span>
+                            <span class="legend-card__role">Forward &amp; Manager</span>
+                        </button>
+                        <button class="legend-card" type="button" data-modal="modal-gerrard">
+                            <i class="legend-card__icon fa-solid fa-shield-halved"></i>
+                            <span class="legend-card__name">Steven Gerrard</span>
+                            <span class="legend-card__role">Captain &middot; 1998&ndash;2015</span>
+                        </button>
+                        <button class="legend-card" type="button" data-modal="modal-salah">
+                            <i class="legend-card__icon fa-solid fa-bolt"></i>
+                            <span class="legend-card__name">Mohamed Salah</span>
+                            <span class="legend-card__role">Forward &middot; 2017&ndash;2026</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Modal windows (hidden until a legend card is clicked) -->
+        <dialog id="modal-shankly" class="modal">
+            <button class="modal__close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Bill Shankly</h3>
+            <p>Shankly arrived in 1959 with Liverpool in the Second Division. He won promotion, three league titles, two FA Cups and the 1973 UEFA Cup, and built the foundations of the club's golden era.</p>
+        </dialog>
+        <dialog id="modal-dalglish" class="modal">
+            <button class="modal__close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Kenny Dalglish</h3>
+            <p>"King Kenny" joined from Celtic in 1977 and scored the winner in the 1978 European Cup final. As player-manager he led Liverpool to the league and FA Cup double in 1985&ndash;86.</p>
+        </dialog>
+        <dialog id="modal-gerrard" class="modal">
+            <button class="modal__close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Steven Gerrard</h3>
+            <p>A local lad from the academy who made over 700 appearances. His header started the famous comeback in Istanbul, where he lifted the Champions League as captain.</p>
+        </dialog>
+        <dialog id="modal-salah" class="modal">
+            <button class="modal__close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Mohamed Salah</h3>
+            <p>Signed from Roma in 2017, the "Egyptian King" became one of the club's all-time top scorers and a multiple Premier League Golden Boot winner.</p>
+        </dialog>
+
+        <!-- Footer: last stripe on the page -->
+        <footer id="contact" class="site-footer">
+            <div class="container">
+                <h2 class="section__title">Get in Touch</h2>
+                <p><i class="fa-solid fa-envelope"></i> rhame2@illinois.edu</p>
+
+                <!-- Task 16: Social media icons -->
+                <ul class="social">
+                    <li><a class="social__link" href="https://twitter.com/LFC" target="_blank" rel="noopener" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a></li>
+                    <li><a class="social__link" href="https://www.instagram.com/liverpoolfc" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a class="social__link" href="https://www.facebook.com/LiverpoolFC" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a class="social__link" href="https://www.youtube.com/@LiverpoolFC" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></li>
+                </ul>
+
+                <p class="site-footer__copy">&copy; 2026 The Kop Corner. An unofficial fan site for CS409 MP1, not affiliated with Liverpool FC.</p>
+            </div>
+        </footer>
     </body>
 </html>

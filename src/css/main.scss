@@ -1,1 +1,596 @@
-/* Your SCSS here. */
+@use "sass:math";
+
+// variables
+$color-maroon: #7b1e2e;        // main text / brand colour
+$color-maroon-dark: #5a1420;   // headings, hover states
+$color-white: #ffffff;         // page background
+$color-border: #ead9dc;        // thin maroon-tinted divider lines
+
+$font-body: "Helvetica Neue", Arial, sans-serif;
+$container-width: 1140px;      // width of the white middle column
+$section-padding: 5rem;
+$gutter: 1.5rem;
+$z-navbar: 100;                // keeps the navbar above page content
+$nav-transition: 0.3s ease;    // speed of the navbar shrink animation
+$slide-transition: 0.5s ease;  // speed of the carousel slide animation
+
+// Breakpoints for responsive layout
+$bp-tablet: 1024px;
+$bp-mobile: 768px;
+
+// Horizontally centers a block and caps its width.
+@mixin centered-container($max: $container-width) {
+    width: 100%;
+    max-width: $max;
+    margin: 0 auto;
+    padding: 0 $gutter;
+}
+
+// paints a full width background as three vertical panels:
+@mixin three-panel-background($side: $color-maroon, $middle: $color-white, $width: $container-width) {
+    $edge-left: calc(50% - #{math.div($width, 2)});
+    $edge-right: calc(50% + #{math.div($width, 2)});
+    background: linear-gradient(
+        to right,
+        $side 0,
+        $side $edge-left,
+        $middle $edge-left,
+        $middle $edge-right,
+        $side $edge-right,
+        $side 100%
+    );
+}
+
+
+@mixin below($width) {
+    @media (max-width: $width) {
+        @content;
+    }
+}
+
+// Shared look for cards (about columns and legend cards)
+@mixin card {
+    padding: 2rem 1.5rem;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    background: $color-white;
+    box-shadow: 0 4px 14px rgba($color-maroon-dark, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 24px rgba($color-maroon-dark, 0.18);
+    }
+}
+
+//animation
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+// base
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-body;
+    color: $color-maroon;
+    background: $color-white;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2;
+    margin-top: 0;
+    color: $color-maroon-dark;
+}
+
+a {
+    color: $color-maroon;
+}
+
+//layout
+.container {
+    @include centered-container;
+    text-align: center;
+}
+
+.section {
+    width: 100%;
+    padding: $section-padding 0;
+    @include three-panel-background;
+    border-bottom: 1px solid $color-border;
+
+    // Task 8
+    &--hero {
+        display: flex;
+        align-items: center;
+        min-height: calc(100vh - 101px); // full screen minus the large navbar
+        padding: 3rem 0;
+    }
+
+    // Task 10: fixed background image. background-attachment: fixed keeps the
+    &--parallax {
+        position: relative;
+        padding: 8rem 0;
+        background-image: linear-gradient(rgba($color-maroon-dark, 0.7), rgba($color-maroon-dark, 0.7)),
+            url("../assets/lfc-2025-parade.jpg");
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        color: $color-white;
+
+        .section__title,
+        .section__intro {
+            color: $color-white;
+        }
+    }
+
+    &__title {
+        font-size: 2.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__intro {
+        max-width: 640px;
+        margin: -0.75rem auto 2.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+//header / navbar
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: $z-navbar;
+    width: 100%;
+    @include three-panel-background;
+    border-bottom: 2px solid $color-maroon;
+    box-shadow: 0 2px 8px rgba($color-maroon-dark, 0.15);
+}
+
+.navbar {
+    @include centered-container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // Large by default: this is how the navbar looks at the top of the page.
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    transition: padding $nav-transition;
+
+    // Task 4: when main.js adds .site-header--shrunk to the header, the
+    // navbar and its text get smaller. "&" here stands for ".navbar".
+    .site-header--shrunk & {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    &__brand {
+        color: $color-maroon;
+        font-weight: 700;
+        font-size: 2rem;
+        text-decoration: none;
+        transition: font-size $nav-transition;
+
+        .site-header--shrunk & {
+            font-size: 1.35rem;
+        }
+    }
+
+    &__menu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 0.5rem;
+    }
+
+    &__link {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        color: $color-maroon;
+        font-size: 1.15rem;
+        text-decoration: none;
+        transition: background-color 0.25s ease, color 0.25s ease, font-size $nav-transition;
+
+        .site-header--shrunk & {
+            font-size: 0.95rem;
+        }
+
+        &:hover {
+            background-color: $color-border;
+        }
+
+        // Position indicator: the link for the section currently being read.
+        // The class is added and removed by updateActiveLink() in main.js.
+        &--active,
+        &--active:hover {
+            background-color: $color-maroon;
+            color: $color-white;
+        }
+    }
+}
+
+//carousel
+.carousel {
+    max-width: 800px;
+    margin: 0 auto;
+
+    // The "window" that shows one slide; everything outside it is hidden.
+    &__viewport {
+        position: relative; // anchor for the absolutely positioned arrows
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba($color-maroon-dark, 0.25);
+    }
+
+    // All slides sit side by side in one long row. main.js slides this row
+    // left by 100% per slide with transform: translateX(...).
+    &__track {
+        display: flex;
+        transition: transform $slide-transition;
+    }
+
+    &__slide {
+        position: relative; // anchor for the caption overlay
+        flex: 0 0 100%;     // each slide is exactly one viewport wide
+        margin: 0;
+        aspect-ratio: 16 / 9;
+    }
+
+    // Each photo fills the 16:9 slide. object-fit: cover crops the photo to
+    // fit instead of stretching it, whatever shape the original is.
+    &__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: $color-maroon-dark; // shown while the photo loads
+    }
+
+    // Caption laid over the bottom of the slide
+    &__caption {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 2.5rem 4.5rem 1.25rem;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+        color: $color-white;
+        text-align: left;
+
+        h3 {
+            margin-bottom: 0.25rem;
+            color: $color-white;
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    // Round arrow buttons on the left and right edges
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%); // centre vertically on the slide
+        width: 3rem;
+        height: 3rem;
+        border: none;
+        border-radius: 50%;
+        background: rgba($color-white, 0.9);
+        color: $color-maroon;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            background: $color-maroon;
+            color: $color-white;
+        }
+
+        &--prev {
+            left: 1rem;
+        }
+
+        &--next {
+            right: 1rem;
+        }
+    }
+
+    // Dot indicators under the slide
+    &__dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-top: 1.25rem;
+    }
+
+    &__dot {
+        width: 0.8rem;
+        height: 0.8rem;
+        padding: 0;
+        border: 2px solid $color-maroon;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+
+        &--active {
+            background: $color-maroon;
+        }
+    }
+}
+
+//Hero
+.hero {
+    animation: fade-in-up 1s ease both; // Task 14
+
+    &__eyebrow {
+        margin: 0 0 1rem;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    &__title {
+        margin-bottom: 1rem;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+    }
+
+    &__tagline {
+        margin: 0 auto 2rem;
+        max-width: 600px;
+        font-size: 1.25rem;
+    }
+}
+
+.button {
+    display: inline-block;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    background: $color-maroon;
+    color: $color-white;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+
+    &:hover {
+        background: $color-maroon-dark;
+        transform: translateY(-2px);
+    }
+}
+
+// ---------- Task 7: Multi-column layout ----------
+.columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // three equal columns
+    gap: 2rem;
+
+    &__item {
+        @include card;
+    }
+
+    &__icon {
+        margin-bottom: 1rem;
+        color: $color-maroon;
+        font-size: 2.5rem;
+    }
+
+    @include below($bp-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+//task 10
+.quote {
+    margin: 1.5rem 0 0;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    font-style: italic;
+}
+
+//task 11
+.legends {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+
+    @include below($bp-tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.legend-card {
+    @include card;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: $color-maroon;
+    font: inherit;
+    cursor: pointer;
+
+    &__icon {
+        color: $color-maroon;
+        font-size: 2.25rem;
+    }
+
+    &__name {
+        color: $color-maroon-dark;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    &__role {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+}
+
+// <dialog> is centred on screen by the browser when opened with showModal()
+.modal {
+    width: min(90vw, 520px);
+    padding: 2.5rem 2rem 2rem;
+    border: none;
+    border-top: 6px solid $color-maroon;
+    border-radius: 8px;
+    color: $color-maroon;
+    text-align: left;
+
+    &[open] {
+        animation: pop-in 0.3s ease; // Task 14
+    }
+
+    // Dark overlay behind the modal
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    h3 {
+        font-size: 1.75rem;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        border: none;
+        border-radius: 50%;
+        background: $color-border;
+        color: $color-maroon;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover {
+            background: $color-maroon;
+            color: $color-white;
+        }
+    }
+}
+
+// social icons
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+
+    &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid $color-maroon;
+        border-radius: 50%;
+        color: $color-maroon;
+        font-size: 1.25rem;
+        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+
+        &:hover {
+            background: $color-maroon;
+            color: $color-white;
+            transform: rotate(360deg);
+        }
+    }
+}
+
+//footer
+.site-footer {
+    width: 100%;
+    padding: 3rem 0;
+    @include three-panel-background;
+    border-top: 2px solid $color-maroon;
+
+    &__copy {
+        font-size: 0.875rem;
+        opacity: 0.75;
+    }
+}
+
+//task 9
+@include below($bp-tablet) {
+    // Stack the brand above the menu so everything fits
+    .navbar {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .navbar__menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.25rem;
+    }
+
+    .section--hero {
+        min-height: calc(100vh - 140px);
+    }
+
+    // iOS/iPad ignore fixed backgrounds, so fall back to a normal one
+    .section--parallax {
+        background-attachment: scroll;
+    }
+}
+
+@include below($bp-mobile) {
+    .section {
+        padding: 3.5rem 0;
+    }
+
+    .carousel__caption {
+        padding: 2rem 4rem 1rem;
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+}
